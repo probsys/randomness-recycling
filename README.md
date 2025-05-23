@@ -89,7 +89,15 @@ int main(int argc, char **argv) {
 The executable in `build/bin/sample_rr` has the following command line interface:
 
 ```
-usage: ./build/bin/sample_rr <sampler (cdf|lookup|alias|fldr|aldr)> <num_samples> <distribution>
+usage: ./build/bin/sample_rr <sampler> <num_samples> <distribution>
+<sampler>        one of: uniform, cdf, lookup, alias, fldr, aldr
+<num_samples>    number of samples to generate
+<distribution>   space-separated list of positive integers (e.g., 5 5 1);
+                 for uniform, only the first number is used
+
+examples:
+  ./build/bin/sample_rr uniform 100 17
+  ./build/bin/sample_rr cdf 10 5 5 1
 ```
 
 where `<num_samples>` is an integer denoting the number of samples to draw,
@@ -99,15 +107,15 @@ for the desired discrete distribution,
 with the total number of elements bounded as `0 < n <= 2147483647`,
 and the sum bounded as `0 < m <= 2147483647`.
 
-For example, to generate 90 samples from { 1, 1, 2, 3, 2 } using the alias method,
-run the following:
+For example, to generate 90 samples from { 1, 1, 2, 3, 2 } using the alias
+method, run the following:
 
 ```sh
 ./build/bin/sample_rr alias 90 1 1 2 3 2
 ```
 
-To generate 9000 samples from { 1, 1, 2, 3, 2 } using a lookup table
-and count them as a histogram, run the following:
+To generate 9000 samples from { 1, 1, 2, 3, 2 } using a lookup table and
+count them as a histogram, run the following:
 
 ```sh
 ./build/bin/sample_rr lookup 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c

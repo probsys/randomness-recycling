@@ -25,11 +25,13 @@ This command creates the following artifacts in the `build/` directory:
 
 The following code from [examples/example.c](examples/example.c)
 shows how to use randomness recycling to repeatedly sample from a distribution
-defined by a list of nonnegative integer weights, using either
-inversion sampling via CDF binary search or lookup table,
-the alias method,
-the Fast Loaded Dice Roller, or
-the Amplified Loaded Dice Roller.
+defined by a list of nonnegative integer weights, using the following methods
+
+- [inversion sampling](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
+- [lookup table sampling](https://www.cs.fsu.edu/~mascagni/Devroye.pdf#page=116)
+- [Walker alias method](https://en.wikipedia.org/wiki/Alias_method)
+- [Fast Loaded Dice Roller](https://arxiv.org/pdf/2003.03830)
+- [Amplified Loaded Dice Roller](https://arxiv.org/pdf/2504.04267).
 
 ```c
 #include <stdlib.h>

@@ -1,0 +1,28 @@
+# This workflow
+
+name: C example
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Examples
+        run: |
+          make
+          ./build/bin/sample_rr cdf 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
+          ./build/bin/sample_rr lookup 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
+          ./build/bin/sample_rr alias 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
+          ./build/bin/sample_rr fldr 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
+          ./build/bin/sample_rr aldr 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
+          cd examples
+          make
+          ./example.out

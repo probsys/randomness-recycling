@@ -34,7 +34,14 @@
 
 int main(int argc, char **argv) {
     if (argc < 4) {
-        printf("usage: %s <sampler (cdf|lookup|alias|fldr|aldr)> <num_samples> <distribution>\n", argv[0]);
+        printf("usage: %s <sampler> <num_samples> <distribution>\n", argv[0]);
+        printf("<sampler>        one of: uniform, cdf, lookup, alias, fldr, aldr\n");
+        printf("<num_samples>    number of samples to generate\n");
+        printf("<distribution>   space-separated list of positive integers (e.g., 5 5 1);\n");
+        printf("                 for uniform, only the first number is used\n\n");
+        printf("examples:\n");
+        printf("  %s uniform 100 17\n", argv[0]);
+        printf("  %s cdf 10 5 5 1\n", argv[0]);
         exit(0);
     }
     char *var_sampler = argv[1];
@@ -47,7 +54,16 @@ int main(int argc, char **argv) {
         a[i] = strtoul(argv[i + 3], NULL, 10);
     }
 
-    // Obtain the samples.
+    // Generate uniform samples.
+    if(strcmp("uniform", var_sampler) == 0) {
+        for (u32 i = 0; i < num_samples; ++i) {
+            printf("%ld ", uniform_eo(a[0]));
+        }
+        printf("\n");
+        return 0;
+    }
+
+    // Generate general samples.
     SAMPLE_PRINT("cdf",
         array_s,
         preprocess_cdf,
@@ -73,6 +89,9 @@ int main(int argc, char **argv) {
         preprocess_aldr_recycle,
         sample_aldr_recycle,
         free_aldr_recycle)
+    else {
+        printf("unknown sampler: %s\n", var_sampler);
+    }
 
     // Free the heap.
     free(a);

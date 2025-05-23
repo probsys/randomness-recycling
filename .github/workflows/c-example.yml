@@ -18,6 +18,7 @@ jobs:
       - name: Test Examples
         run: |
           make
+          ./build/bin/sample_rr uniform 9000 10 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
           ./build/bin/sample_rr cdf 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
           ./build/bin/sample_rr lookup 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c
           ./build/bin/sample_rr alias 9000 1 1 2 3 2 | tr -d '\n' | tr ' ' '\n' | sort | uniq -c

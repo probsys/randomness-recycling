@@ -5,6 +5,13 @@ random sampling algorithms for discrete probability distributions.
 These samplers use a technique called randomness recycling to
 reduce the expected amortized entropy consumption over many samples.
 
+Descriptions of the algorithms are given in the following [article](https://arxiv.org/abs/2505.18879)
+
+_Efficient Online Random Sampling via Randomness Recycling_.
+Thomas L. Draper, Feras A. Saad.
+arXiv:2505.18879 [cs.DS], 2025.
+https://doi.org/10.48550/arXiv.2505.18879
+
 ## Installation
 
 The library can be built by running
